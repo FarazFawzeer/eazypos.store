@@ -14,6 +14,7 @@ use App\Models\Purchase;
 use App\Models\PurchaseItem;
 use App\Models\PurchaseReturn;
 use App\Models\PurchaseReturnItem;
+use App\Models\Quotation;
 use App\Models\Sale;
 use App\Models\SaleItem;
 use App\Models\SalePayment;
@@ -61,6 +62,8 @@ class BootstrapService
                 'phone' => $business->phone ?? '',
                 'address' => $business->address ?? '',
                 'logoUrl' => $business->logo_url ?? '',
+                'taxRate' => (float) ($business->tax_rate ?? 0),
+                'receiptFooter' => $business->receipt_footer ?? '',
             ],
             'products' => $scoped(Product::class)->where('is_active', true)->orderBy('name')->get(),
             'categories' => $scoped(Category::class)->orderBy('name')->get(),
@@ -85,6 +88,7 @@ class BootstrapService
                 ? $scoped(StaffInvitation::class)->select(['id', 'email', 'role', 'permissions', 'status', 'expires_at', 'created_at'])->orderByDesc('created_at')->get()
                 : [],
             'shipments' => $ctx->can('shipments') ? $scoped(Shipment::class)->orderByDesc('created_at')->limit(100)->get() : [],
+            'quotations' => $scoped(Quotation::class)->orderByDesc('quotation_date')->get(),
             'stock_movements' => $scoped(StockMovement::class)->orderByDesc('created_at')->limit(100)->get(),
         ];
     }

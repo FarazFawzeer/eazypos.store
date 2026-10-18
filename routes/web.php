@@ -83,6 +83,8 @@ Route::middleware(['auth', 'business'])->group(function () {
         Route::put('/staff/{member}', [Api\StaffController::class, 'update']);
         Route::post('/staff/remove', [Api\StaffController::class, 'destroy']);
 
+        Route::post('/quotations', [Api\QuotationController::class, 'store']);
+
         Route::put('/settings', [Api\SettingsController::class, 'update']);
     });
 });

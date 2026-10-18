@@ -6,7 +6,11 @@
 <meta name="robots" content="noindex,nofollow">
 <link rel="icon" type="image/png" sizes="192x192" href="/icons/eazypos-192.png">
 <title>EazyPOS — Team Console</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
 <link rel="stylesheet" href="{{ \App\Support\Asset::url('css/app.css') }}">
+<link rel="stylesheet" href="{{ \App\Support\Asset::url('css/polish.css') }}">
 <style>
 .admin-top{display:flex;align-items:center;justify-content:space-between;gap:12px;background:#090c0a;color:#fff;padding:14px 24px}
 .admin-top img{width:140px;height:auto;display:block}
@@ -18,6 +22,8 @@
 .inline-form .btn{padding:8px 12px;font-size:12px}
 details summary{cursor:pointer;font-weight:850;font-size:12px;color:var(--muted)}
 .msg{white-space:pre-wrap;max-width:420px;font-size:12px;line-height:1.5}
+.admin-top .inline-form{flex-wrap:nowrap}
+@media(max-width:640px){.admin-top{padding:12px 14px}.admin-top img{width:108px}.admin-top .small{display:none}.inline-form .input,.inline-form .select{min-width:0;flex:1 1 140px}.msg{max-width:none}}
 </style>
 </head>
 <body>
@@ -128,5 +134,7 @@ details summary{cursor:pointer;font-weight:850;font-size:12px;color:var(--muted)
         </table></div>
     </div>
 </div>
+<script src="{{ \App\Support\Asset::url('js/pos/12-ui.js') }}"></script>
+<script>labelTables(document)</script>
 </body>
 </html>

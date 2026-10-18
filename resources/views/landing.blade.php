@@ -7,6 +7,9 @@
 @endverbatim
 <meta name="csrf-token" content="{{ csrf_token() }}">
 @verbatim
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap">
 <link rel="manifest" href="/manifest.webmanifest">
 <link rel="icon" type="image/png" sizes="192x192" href="/icons/eazypos-192.png">
 <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
@@ -209,16 +212,140 @@
 }
 @media(max-width:380px){.package h2,.center h2{letter-spacing:-.6px!important}}
 </style>
+<style id="landing-polish">
+/* Final layer: one button system, one section rhythm, aligned grids. */
+:root{--ink:#0e110f;--line:#e3e7df;--muted:#646d66;--radius-lg:24px;--radius-md:18px}
+body{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+:where(a,button,input,select,textarea):focus-visible{outline:none;box-shadow:0 0 0 3px rgba(211,255,18,.6),0 0 0 5px var(--ink)}
+
+/* Buttons */
+.get,.pill,.formbtn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:48px;padding:0 22px;border-radius:999px;font-size:15px;font-weight:700;letter-spacing:-.01em;line-height:1;white-space:nowrap;text-decoration:none;cursor:pointer;transition:background-color .15s,color .15s,border-color .15s,filter .15s}
+.get{background:var(--ink);color:#fff;border:1.5px solid var(--ink)}
+.get:hover{filter:brightness(1.25)}
+.pill{background:transparent;color:var(--ink);border:1.5px solid rgba(14,17,15,.35)}
+.pill:hover{border-color:var(--ink);background:rgba(14,17,15,.06)}
+.hero-actions .get,.mobile-hero-actions .get{background:var(--lime);border-color:var(--lime);color:var(--ink)}
+.hero-actions .get:hover{filter:brightness(.95)}
+.hero-actions .pill,.mobile-hero-actions .pill{color:#fff;border-color:rgba(255,255,255,.35)}
+.hero-actions .pill:hover{border-color:#fff;background:rgba(255,255,255,.08)}
+.formbtn{width:100%;height:50px;margin-top:6px;border-radius:14px}
+
+/* Navigation: a matched pair, outline + solid, same size */
+.navbar .navin{max-width:1180px;height:68px;min-height:68px;padding:0 24px}
+.navbar .brand{width:118px;height:auto}
+.navbar .navlinks{gap:28px}
+.navbar .navlinks a{font-size:14px;font-weight:600;color:var(--ink);opacity:.82;text-decoration:none}
+.navbar .navlinks a:hover{opacity:1}
+.navbar .nav-actions{gap:10px}
+.navbar .nav-actions .pill,.navbar .nav-actions .get{height:40px;min-width:108px;padding:0 18px;font-size:14px;font-weight:700;border-radius:999px}
+.navbar .nav-actions .pill{background:transparent;color:var(--ink);border:1.5px solid var(--ink)}
+.navbar .nav-actions .pill:hover{background:var(--ink);color:#fff}
+.navbar .nav-actions .get{background:var(--ink);color:#fff;border:1.5px solid var(--ink)}
+
+/* Section rhythm */
+.section{padding:96px 24px}
+.in{max-width:1180px}
+.kicker{font-size:12px;font-weight:700;letter-spacing:.1em}
+h2,.package h2,.center h2{font-size:clamp(32px,4vw,48px)!important;line-height:1.06!important;letter-spacing:-.03em!important;margin:12px 0 14px}
+.lead{font-size:17px;line-height:1.6;max-width:640px}
+.center{max-width:720px;margin-left:auto;margin-right:auto}
+
+/* Everything you need */
+.package{gap:72px;align-items:center;margin-bottom:96px}
+.package .mock{max-width:520px;width:100%;justify-self:center;border-radius:var(--radius-lg)}
+.checks{gap:16px;margin-top:28px}
+.check{display:flex;gap:14px;align-items:flex-start}
+.check i{width:26px;height:26px;font-size:13px;margin-top:1px}
+.check b{font-size:15px;font-weight:700;margin-bottom:2px}
+
+/* Feature and step cards: equal heights */
+.features{gap:16px;margin-top:40px;align-items:stretch}
+.feature{display:flex;flex-direction:column;padding:28px;border-radius:var(--radius-md);height:100%}
+.feature h3{font-size:17px;font-weight:700;margin:18px 0 8px;letter-spacing:-.01em}
+.feature p{font-size:14.5px;line-height:1.55;margin:0}
+.ico{width:44px;height:44px;border-radius:12px;font-size:14px;font-weight:800}
+.stats{gap:16px;margin-top:16px}
+.stat{padding:26px 28px;border-radius:var(--radius-md)}
+.stat b{font-size:40px;letter-spacing:-.03em;line-height:1}
+.stat span{margin-top:10px}
+
+/* Business types */
+.businesses{gap:16px;margin-top:40px}
+.business{display:flex;align-items:center;justify-content:center;min-height:72px;padding:18px;text-align:center;font-weight:700;font-size:15px;border-radius:var(--radius-md)}
+
+/* Testimonials */
+.testimonial-head{margin-bottom:8px}
+
+/* Contact card and final call to action sit together */
+.home-contact{padding-bottom:28px}
+.home-contact + .section{padding-top:28px}
+.contact-home-card,.cta{border-radius:var(--radius-lg);padding:48px 52px;gap:32px;align-items:center}
+.contact-home-card h2,.cta h2{margin:8px 0 0}
+.contact-home-card .get{flex:0 0 auto;background:var(--lime);border-color:var(--lime);color:var(--ink)}
+.cta .get{margin-top:0;flex:0 0 auto}
+.contact-home-card .get{height:48px!important;min-height:0!important;padding:0 24px!important;white-space:nowrap!important}
+
+/* Footer */
+.footer{padding:72px 24px 28px}
+.footergrid{max-width:1180px;gap:40px}
+.footercol h4{font-size:14px;font-weight:700}
+.footercol a:hover{color:#fff}
+
+/* Auth modal */
+.modalbox .field input{height:48px;border-radius:12px}
+
+/* Laptop widths: keep the hero copy readable over the device photo */
+@media(min-width:681px) and (max-width:1279px){
+  .hero-v2.hero-image-bg{background-image:linear-gradient(90deg,rgba(5,7,6,.97) 0%,rgba(5,7,6,.9) 40%,rgba(5,7,6,.35) 66%,rgba(5,7,6,0) 82%),url("/assets/eazypos-hero-devices.png");background-size:cover,cover;background-position:center,78% center;background-repeat:no-repeat}
+  .hero-v2 .hero-copy,.hero-v2.hero-image-bg .hero-copy{max-width:520px}
+  .hero-v2 h1{font-size:clamp(46px,6vw,70px);letter-spacing:-3px}
+  .hero-v2 .hero-copy p{font-size:17px;max-width:470px}
+}
+
+/* Tablet */
+@media(max-width:980px){
+  .section{padding:80px 22px}
+  .package{gap:48px;margin-bottom:80px}
+  .contact-home-card,.cta{padding:40px 36px}
+}
+
+/* Phone */
+@media(max-width:720px){
+  .section{padding:64px 18px}
+  .navbar .navin{height:60px;min-height:60px;padding:0 16px}
+  .navbar .brand{width:100px}
+  .navbar .nav-actions .pill,.navbar .nav-actions .get{height:38px;min-width:0;padding:0 16px;font-size:13.5px}
+  /* On phones the solid sign-in button is the only header action */
+  .navbar .nav-actions .pill{background:var(--ink);color:#fff}
+  h2,.package h2,.center h2{font-size:clamp(30px,8.5vw,38px)!important}
+  .lead{font-size:16px}
+  .package{gap:36px;margin-bottom:64px}
+  .feature{padding:22px}
+  .stat{padding:22px}
+  .stat b{font-size:34px}
+  .business{min-height:60px}
+  .home-contact{padding-bottom:20px}
+  .home-contact + .section{padding-top:20px}
+  .contact-home-card,.cta{padding:28px 22px!important;gap:20px!important}
+  .contact-home-card .get,.cta .get{width:100%}
+  .cta{display:flex;flex-direction:column;align-items:flex-start}
+  .footer{padding:56px 18px 24px}
+}
+
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+}
+</style>
 </head>
 <body>
-<header class="navbar"><div class="navin"><img class="brand" src="/assets/eazypos-logo-transparent.png" alt="EazyPOS"><nav class="navlinks"><a href="#features">Features</a><a href="#how">How it works</a><a href="#businesses">For businesses</a><a href="#about">About</a><a href="/inquiry">Contact</a></nav><div class="nav-actions"><button class="pill" onclick="openLogin()">Log in</button><button class="get" onclick="openSignup()">Get Started →</button></div></div></header>
+<header class="navbar"><div class="navin"><img class="brand" src="/assets/eazypos-logo-transparent.png" alt="EazyPOS"><nav class="navlinks"><a href="#features">Features</a><a href="#how">How it works</a><a href="#businesses">For businesses</a><a href="#about">About</a><a href="/inquiry">Contact</a></nav><div class="nav-actions"><button class="pill" onclick="openLogin()">Log in</button><button class="get" onclick="openSignup()">Get Started</button></div></div></header>
 <main>
 <section class="hero hero-v2 hero-image-bg">
   <div class="hero-copy">
     <span class="eyebrow">SIMPLE POS FOR SMALL BUSINESS</span>
     <h1><span>Run your business.</span><span class="highlight">Simply.</span></h1>
     <p>Sales, stock, purchases, customers and business insights in one easy-to-use POS — designed to keep everyday selling fast and clear.</p>
-    <div class="hero-actions"><button class="get" onclick="openSignup()">Get Started Free →</button><button class="pill" onclick="document.getElementById('features').scrollIntoView()">Explore EazyPOS</button></div>
+    <div class="hero-actions"><button class="get" onclick="openSignup()">Get Started Free</button><button class="pill" onclick="document.getElementById('features').scrollIntoView()">Explore EazyPOS</button></div>
     <div class="counterline"><b id="userCount">0</b>+ business users getting started with EazyPOS</div>
   </div>
   <div class="mobile-hero-layout">
@@ -261,16 +388,16 @@
   </div>
 </section>
 <section class="section alt" id="features"><div class="in"><div class="package reveal"><div class="mock"><div class="mock-screen"><div style="display:flex;justify-content:space-between;font-size:10px;margin-bottom:10px"><b>eazypos</b><span>Live workspace</span></div><div class="mock-sales"><small>TODAY'S SALES</small><strong id="packageSales">Rs. 0</strong></div><div class="mock-grid"><div><b>＋ New Sale</b><br><small>Fast checkout</small></div><div><b>▣ Products</b><br><small>Stock & pricing</small></div><div><b>▤ Purchases</b><br><small>Suppliers & GRN</small></div><div><b>▥ Reports</b><br><small>Business insights</small></div></div></div></div><div><div class="kicker">Everything you need</div><h2>Everything you need. One simple POS.</h2><p class="lead" style="margin:0">One free POS workspace for the everyday jobs that keep your business moving.</p><div class="checks"><div class="check"><i>✓</i><div><b>Sell in seconds</b><span>Find products, add them to the cart and complete Cash, Card, Credit or Bank sales quickly.</span></div></div><div class="check"><i>✓</i><div><b>Manage stock & purchases</b><span>Track products, suppliers, costs, purchases and stock changes in one place.</span></div></div><div class="check"><i>✓</i><div><b>Run your register</b><span>Open cash, track activity, close the register and keep the cash balance clear.</span></div></div><div class="check"><i>✓</i><div><b>Understand your numbers</b><span>See sales, profit, expenses, stock, suppliers and register reports without the clutter.</span></div></div><div class="check"><i>✓</i><div><b>Use it across devices</b><span>Move between PC, tablet and mobile with the same simple EazyPOS experience.</span></div></div></div><span class="free">100% Free to get started</span></div></div><div class="center reveal" style="margin-top:85px"><div class="kicker">Built around your day</div><h2>Less clicking. More doing.</h2><p class="lead">A focused set of tools for sales, stock, purchases, registers and useful business insights.</p></div><div class="features reveal"><div class="feature"><div class="ico">＋</div><h3>Fast Sales</h3><p>Find a product, add it, choose a payment method and finish the sale.</p></div><div class="feature"><div class="ico">▣</div><h3>Stock & Purchases</h3><p>Record purchases, returns, suppliers, costs and stock adjustments.</p></div><div class="feature"><div class="ico">▥</div><h3>Know Your Numbers</h3><p>Sales, profit, expenses, register and supplier reports in one place.</p></div></div><div class="stats reveal"><div class="stat"><b id="statUsers">0</b><span>registered users in our early test community</span></div><div class="stat"><b>1</b><span>simple system for everyday business</span></div><div class="stat"><b>24/7</b><span>access from supported devices</span></div></div></div></section>
-<section class="section dark-section" id="how"><div class="in"><div class="center"><div class="kicker" style="color:#9ca69e">How it works</div><h2>Start in minutes.</h2><p class="lead">Create your account, set your currency, add products, open your register and start selling.</p></div><div class="features"><div class="feature"><div class="ico">01</div><h3>Create your account</h3><p>Choose a unique username and set up your business profile.</p></div><div class="feature"><div class="ico">02</div><h3>Add products & opening stock</h3><p>Add products, prices, stock, suppliers and low-stock alerts.</p></div><div class="feature"><div class="ico">03</div><h3>Open register & sell</h3><p>Set opening cash, sell, track the register and close it at the end of the day.</p></div></div></div></section>
+<section class="section dark-section" id="how"><div class="in"><div class="center"><div class="kicker" style="color:#9ca69e">How it works</div><h2>Start in minutes.</h2><p class="lead">Get your account, add your products, open your register and start selling.</p></div><div class="features"><div class="feature"><div class="ico">01</div><h3>Get your account</h3><p>Tell us about your business. Our team sets up your account and sends your sign-in details.</p></div><div class="feature"><div class="ico">02</div><h3>Add products & opening stock</h3><p>Add products, prices, stock, suppliers and low-stock alerts.</p></div><div class="feature"><div class="ico">03</div><h3>Open register & sell</h3><p>Set opening cash, sell, track the register and close it at the end of the day.</p></div></div></div></section>
 <section class="section" id="businesses"><div class="in"><div class="center"><div class="kicker">Made for small business</div><h2>One POS. Many businesses.</h2><p class="lead">Retail shops, groceries, cafés, salons, service businesses and more can start with the same simple core.</p></div><div class="businesses"><div class="business">Retail & Stores</div><div class="business">Grocery & Mini Mart</div><div class="business">Cafés & Food</div><div class="business">Services & More</div></div></div></section>
 <section class="section testimonial-strip" id="testimonials"><div class="in"><div class="testimonial-head"><div><div class="kicker" style="color:#9ca69e">Business stories</div><h2>Simple enough for everyday business.</h2><p class="lead">Illustrative customer stories showing the kinds of businesses EazyPOS is built to support.</p></div></div><div class="testimonial-carousel"><div class="testimonial-viewport"><div class="testimonial-track" id="testimonialTrack"><div class="testimonial-slide"><article class="testimonial-card"><span class="testimonial-tag">BUSINESS STORY · INDIA</span><p class="testimonial-quote">“The checkout and stock flow feels easy to understand, even on a busy day.”</p><div class="testimonial-person"><img src="/assets/testimonial-1.svg" alt="Profile illustration"><div><strong>Aarav Mehta</strong><span>Boutique Retail · India</span></div></div></article><article class="testimonial-card"><span class="testimonial-tag">BUSINESS STORY · UK</span><p class="testimonial-quote">“Staff can get through a sale without working through a complicated screen.”</p><div class="testimonial-person"><img src="/assets/testimonial-2.svg" alt="Profile illustration"><div><strong>Olivia Carter</strong><span>Salon &amp; Beauty · United Kingdom</span></div></div></article><article class="testimonial-card"><span class="testimonial-tag">BUSINESS STORY · CANADA</span><p class="testimonial-quote">“Sales, purchases and reports together give us a clearer view of the day.”</p><div class="testimonial-person"><img src="/assets/testimonial-3.svg" alt="Profile illustration"><div><strong>Daniel Nguyen</strong><span>Café &amp; Food · Canada</span></div></div></article></div><div class="testimonial-slide"><article class="testimonial-card"><span class="testimonial-tag">BUSINESS STORY · SRI LANKA</span><p class="testimonial-quote">“It keeps the important parts of the shop in one place without making the team feel overwhelmed.”</p><div class="testimonial-person"><img src="/assets/testimonial-4.svg" alt="Profile illustration"><div><strong>Fathima Nazeer</strong><span>Grocery Store · Sri Lanka</span></div></div></article><article class="testimonial-card"><span class="testimonial-tag">BUSINESS STORY · MALDIVES</span><p class="testimonial-quote">“The simple sales and stock workflow makes daily operations easier to follow.”</p><div class="testimonial-person"><img src="/assets/testimonial-5.svg" alt="Profile illustration"><div><strong>Ahmed Shafaz</strong><span>Island Retail · Maldives</span></div></div></article><article class="testimonial-card"><span class="testimonial-tag">BUSINESS STORY · BANGLADESH</span><p class="testimonial-quote">“Having sales, purchases and reports together gives the business a much clearer routine.”</p><div class="testimonial-person"><img src="/assets/testimonial-6.svg" alt="Profile illustration"><div><strong>Nusrat Jahan</strong><span>Fashion Retail · Bangladesh</span></div></div></article></div></div></div><div class="testimonial-nav"><button type="button" onclick="testimonialMove(-1)" aria-label="Previous testimonials">←</button><button type="button" onclick="testimonialMove(1)" aria-label="Next testimonials">→</button></div><div class="testimonial-dots" id="testimonialDots"><button class="active" type="button" onclick="testimonialGo(0)" aria-label="Testimonials 1"></button><button type="button" onclick="testimonialGo(1)" aria-label="Testimonials 2"></button></div></div></div></section>
-<section class="section home-contact" id="contact"><div class="in"><div class="contact-home-card reveal"><div><div class="kicker" style="color:#9ca69e">Need a hand?</div><h2 style="margin-bottom:0">Let’s talk.</h2><p>Have a question about EazyPOS, getting started, or your business setup? Reach us at <a class="contact-email" href="mailto:help@eazyposs.store">help@eazyposs.store</a>.</p></div><a class="get" href="/inquiry" style="text-decoration:none;display:inline-block;white-space:nowrap">Contact EazyPOS →</a></div></div></section>
-<section class="section alt" id="about"><div class="in"><div class="cta"><div><div class="kicker" style="color:#566100">EazyPOS</div><h2>Ready to make selling easier?</h2></div><button class="get" onclick="openSignup()">Get Started Free →</button></div></div></section>
+<section class="section home-contact" id="contact"><div class="in"><div class="contact-home-card reveal"><div><div class="kicker" style="color:#9ca69e">Need a hand?</div><h2 style="margin-bottom:0">Let’s talk.</h2><p>Have a question about EazyPOS, getting started, or your business setup? Reach us at <a class="contact-email" href="mailto:help@eazyposs.store">help@eazyposs.store</a>.</p></div><a class="get" href="/inquiry" style="text-decoration:none;display:inline-block;white-space:nowrap">Contact EazyPOS</a></div></div></section>
+<section class="section alt" id="about"><div class="in"><div class="cta"><div><div class="kicker" style="color:#566100">EazyPOS</div><h2>Ready to make selling easier?</h2></div><button class="get" onclick="openSignup()">Get Started Free</button></div></div></section>
 
-<div class="modal hidden" id="inviteSetupModal"><div class="modalbox"><div class="kicker">INVITATION ACCEPTED</div><h2>Finish your EazyPOS account.</h2><p class="muted">Set your staff profile and password to join the business you were invited to.</p><div class="field"><label>FULL NAME *</label><input id="inviteFullName" placeholder="Your full name"></div><div class="field"><label>USERNAME</label><input id="inviteUsername" placeholder="e.g. testcashier"><div class="muted" style="font-size:11px;margin-top:5px">Optional. Use 3–32 letters, numbers, dot, underscore or hyphen.</div></div><div class="field"><label>NEW PASSWORD *</label><input id="invitePassword" type="password" placeholder="At least 8 characters" autocomplete="new-password"></div><div class="field"><label>CONFIRM PASSWORD *</label><input id="invitePassword2" type="password" placeholder="Repeat your password" autocomplete="new-password"></div><div id="inviteSetupErr" class="error"></div><button class="formbtn lime" id="inviteSetupBtn" onclick="completeStaffInvitation()">FINISH ACCOUNT →</button></div></div>
+<div class="modal hidden" id="inviteSetupModal"><div class="modalbox"><div class="kicker">INVITATION ACCEPTED</div><h2>Finish your EazyPOS account.</h2><p class="muted">Set your staff profile and password to join the business you were invited to.</p><div class="field"><label>FULL NAME *</label><input id="inviteFullName" placeholder="Your full name"></div><div class="field"><label>USERNAME</label><input id="inviteUsername" placeholder="e.g. testcashier"><div class="muted" style="font-size:11px;margin-top:5px">Optional. Use 3–32 letters, numbers, dot, underscore or hyphen.</div></div><div class="field"><label>NEW PASSWORD *</label><input id="invitePassword" type="password" placeholder="At least 8 characters" autocomplete="new-password"></div><div class="field"><label>CONFIRM PASSWORD *</label><input id="invitePassword2" type="password" placeholder="Repeat your password" autocomplete="new-password"></div><div id="inviteSetupErr" class="error"></div><button class="formbtn lime" id="inviteSetupBtn" onclick="completeStaffInvitation()">Finish account</button></div></div>
 </main>
 <footer class="footer"><div class="footergrid"><div class="footerbrand"><img src="/assets/eazypos-logo-green.png" alt="EazyPOS"><p>A simple, modern POS built to help small businesses sell, track and grow with less effort.</p><div class="footercontact"><span>Need help?</span><a href="mailto:help@eazyposs.store">help@eazyposs.store</a></div><div class="socials" aria-label="EazyPOS social media"><a href="https://www.instagram.com/eazyposs?stkn=MXM4dWo2b2FqYmtvNQ%3D%3D&amp;utm_source=qr" aria-label="Instagram" title="Instagram" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="4.2" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="17.4" cy="6.7" r="1.2" fill="currentColor"/></svg></a><a href="https://www.facebook.com/share/1J4kpjqima/?mibextid=wwXIfr" aria-label="Facebook" title="Facebook" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14.2 21v-8h2.7l.4-3.1h-3.1V8c0-.9.3-1.5 1.6-1.5h1.7V3.7c-.3 0-1.4-.1-2.6-.1-2.6 0-4.4 1.6-4.4 4.5v1.8H7.8V13h2.7v8h3.7Z" fill="currentColor"/></svg></a><a href="#" aria-label="TikTok" title="TikTok"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15.2 3c.3 2.1 1.5 3.4 3.6 3.6v3.2c-1.4-.1-2.6-.5-3.6-1.2v6.3c0 4-2.8 6.1-6 6.1-3 0-5.2-2.1-5.2-5 0-3.2 2.5-5.3 5.8-5.3.4 0 .8 0 1.2.1v3.2c-.4-.1-.7-.2-1.1-.2-1.2 0-2.3.7-2.3 2 0 1.1.8 2 2 2 1.4 0 2.1-.9 2.1-2.5V3h3.5Z" fill="currentColor"/></svg></a><a href="#" aria-label="LinkedIn" title="LinkedIn"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5.2 8.2H2V21h3.2V8.2ZM3.6 3C2.6 3 2 3.7 2 4.6s.6 1.6 1.6 1.6 1.6-.7 1.6-1.6S4.6 3 3.6 3ZM21 13.7c0-3.9-2.1-5.7-5-5.7-2.3 0-3.3 1.3-3.8 2.2V8.2H9V21h3.2v-6.4c0-1.7.3-3.4 2.5-3.4 2.2 0 2.2 2 2.2 3.5V21H21v-7.3Z" fill="currentColor"/></svg></a></div></div><div class="footercol"><h4>Product</h4><a href="#features">Features</a><a href="#how">How it works</a><a href="#businesses">For businesses</a><a href="#about">Get Started</a></div><div class="footercol"><h4>Why EazyPOS?</h4><a href="#features">Simple POS</a><a href="#features">Stock & Purchases</a><a href="#how">Register</a><a href="#features">Reports</a></div><div class="footercol"><h4>Company</h4><a href="#about">About Us</a><a href="/inquiry">Contact</a><a href="#how">How It Works</a></div><div class="footercol"><h4>Account</h4><a href="#" onclick="openLogin();return false">Log in</a><a href="#" onclick="openSignup();return false">Request an account</a><a href="#features">Free to start</a></div></div><div class="footerbottom"><span>© 2026 EazyPOS · Simple POS for small businesses</span><span>Questions? <a href="mailto:help@eazyposs.store">help@eazyposs.store</a></span></div></footer>
-<div class="modal hidden" id="authModal"><div class="modalbox"><button class="close" onclick="closeModal()">×</button><div id="loginView"><div class="kicker">EAZY POS</div><h2>Welcome back.</h2><div class="field"><label>USERNAME OR EMAIL</label><input id="loginId" placeholder="Username or email" autocomplete="username" onkeydown="if(event.key==='Enter')document.getElementById('loginPass').focus()"></div><div class="field"><label>PASSWORD</label><input id="loginPass" type="password" placeholder="••••••••" autocomplete="current-password" onkeydown="if(event.key==='Enter')login()"></div><button class="formbtn" onclick="login()">SIGN IN →</button><div id="loginErr" class="error" aria-live="polite"></div><div class="switch">New here? <button onclick="openSignup()">Request an account</button></div></div></div></div>
+<div class="modal hidden" id="authModal"><div class="modalbox"><button class="close" onclick="closeModal()">×</button><div id="loginView"><div class="kicker">EAZY POS</div><h2>Welcome back.</h2><div class="field"><label>USERNAME OR EMAIL</label><input id="loginId" placeholder="Username or email" autocomplete="username" onkeydown="if(event.key==='Enter')document.getElementById('loginPass').focus()"></div><div class="field"><label>PASSWORD</label><input id="loginPass" type="password" placeholder="••••••••" autocomplete="current-password" onkeydown="if(event.key==='Enter')login()"></div><button class="formbtn" onclick="login()">Sign in</button><div id="loginErr" class="error" aria-live="polite"></div><div class="switch">New here? <button onclick="openSignup()">Request an account</button></div></div></div></div>
 @endverbatim
 <script>window.EAZY_PAGE=@json(['invite' => $invite ?? null, 'openLogin' => (bool) ($openLogin ?? false), 'loginError' => session('login_error')]);</script>
 @verbatim
@@ -317,14 +444,14 @@ async function completeStaffInvitation(){
  if(password.length<8){err.textContent='Password must be at least 8 characters.';return}
  if(password!==password2){err.textContent='Passwords do not match.';return}
  if(username && !/^[a-z0-9][a-z0-9._-]{2,31}$/.test(username)){err.textContent='Username must be 3–32 characters and use only letters, numbers, dot, underscore or hyphen.';return}
- btn.disabled=true; btn.style.opacity='.65'; btn.textContent='SETTING UP…';
+ btn.disabled=true; btn.style.opacity='.65'; btn.textContent='Setting up…';
  try{
    const result=await postJson('/invitation/'+encodeURIComponent(invite.token),{full_name:fullName,username,password,password_confirmation:password2});
    err.style.color='#23804d'; err.textContent='Account ready. Opening EazyPOS…';
    setTimeout(()=>location.href=result.redirect||'/app',350);
  }catch(error){
    err.textContent=error?.message||'Unable to complete your invitation.';
-   btn.disabled=false; btn.style.opacity='1'; btn.textContent='FINISH ACCOUNT →';
+   btn.disabled=false; btn.style.opacity='1'; btn.textContent='Finish account';
  }
 }
 (function initAuthState(){

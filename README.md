@@ -144,9 +144,12 @@ These were bugs in the Supabase build, fixed here:
   * Already-returned quantities now show on the return screen.
   * The dashboard no longer counts cancelled sales.
   * Stock adjustment history is now shown.
-* **Settings:** the business name and currency are now saved to the database.
+* **Settings:** business name, currency, tax % and receipt footer are saved to the database.
+  The receipt footer prints on invoices; tax % is stored but not yet applied to sale totals,
+  the same as the original.
+* **Quotations** were kept only in the browser and vanished on reload. They are now saved
+  with numbers QUO-000001, QUO-000002, ... (same screen and form as before).
 
 Modules that were placeholders in the original are kept exactly as they were:
-Quotations, Notification Templates, Payment Accounts, Variations and the import
-screens. Online/COD selling on the POS also stays disabled, as in the last build.
+Notification Templates, Payment Accounts, Variations and the import screens. Online/COD selling on the POS also stays disabled, as in the last build.
 # eazypos.store

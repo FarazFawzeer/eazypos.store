@@ -10,7 +10,7 @@ async function loadBusinessData(){
  const {data:payload,error}=await eazyApi.get('/api/bootstrap');
  if(error||!payload){if(error)console.error('Unable to load business data',error);return false;}
  account=payload.account;
- data.settings.business=account.business;data.settings.currency=account.currency||'LKR';
+ data.settings.business=account.business;data.settings.currency=account.currency||'LKR';data.settings.tax=Number(account.taxRate||0);data.settings.receiptFooter=account.receiptFooter||'Thank you!';
  const {products,categories,brands,units,customers,suppliers,sales,sale_items:saleItems,sale_payments:payments,purchases,purchase_items:purchaseItems,purchase_returns:purchaseReturns,purchase_return_items:purchaseReturnItems,expenses,expense_categories:expenseCategories,cash_registers:registers,sale_returns:saleReturns,sale_return_items:saleReturnItems,business_users:businessUsers,staff_invitations:staffInvitations,shipments:shipmentRows,stock_movements:stockMovements}=payload;
  const catMap=Object.fromEntries(categories.map(x=>[x.id,x.name]));const brandMap=Object.fromEntries(brands.map(x=>[x.id,x.name]));const unitMap=Object.fromEntries(units.map(x=>[x.id,x.name]));const custMap=Object.fromEntries(customers.map(x=>[x.id,x.name]));const supplierMap=Object.fromEntries(suppliers.map(x=>[x.id,x.name]));
  data.products=products.map(p=>({id:p.id,name:p.name,sku:p.sku||p.barcode||'',barcode:p.barcode||'',category:catMap[p.category_id]||'',brand:brandMap[p.brand_id]||'',cost:Number(p.cost_price||0),sell:Number(p.selling_price||0),stock:Number(p.stock_quantity||0),low:Number(p.low_stock_alert||0),unit:unitMap[p.unit_id]||'pcs',createdAt:p.created_at}));
@@ -49,6 +49,7 @@ async function loadBusinessData(){
    updatedAt:s.updated_at
  }));
  const productNames=Object.fromEntries(products.map(p=>[p.id,p.name]));
+ data.quotations=(payload.quotations||[]).map(q=>({id:q.id,number:q.quotation_number,customer:q.customer_name||custMap[q.customer_id]||'Walk-in Customer',date:String(q.quotation_date||q.created_at||'').slice(0,10),total:Number(q.grand_total||0),status:q.status||'draft'}));
  data.stockHistory=(stockMovements||[]).map(m=>{const q=Number(m.quantity||0);return {product:productNames[m.product_id]||'Product',reason:m.note||String(m.movement_type||'').replace(/_/g,' '),date:m.created_at,change:(q>0?'+':'')+q}});
  return true;
 }
@@ -89,18 +90,18 @@ function accessDeniedView(view){
  return `<div class="page"><div class="card" style="max-width:720px;margin:60px auto;text-align:center;padding:52px 28px"><div style="width:64px;height:64px;border-radius:50%;display:grid;place-items:center;margin:0 auto 18px;background:#fff0ee;color:#d84a3a;font-size:30px">!</div><div class="eyebrow">ACCESS RESTRICTED</div><h1 style="margin:8px 0 10px">You don't have access</h1><p class="muted" style="max-width:520px;margin:0 auto;line-height:1.6">Your current role does not have permission to access ${esc(label)}. Ask your business owner or administrator to enable this permission for your account.</p><button class="btn primary" style="margin-top:22px" onclick="go('home')">Back to Home</button></div></div>`;
 }
 function navSections(){return [
- {id:'home',icon:'⌂',label:'Home'},
- {id:'users',icon:'♙',label:'User Management'},
- {id:'contacts',icon:'▣',label:'Contacts',expand:'contactMenu',items:[['customers','Customers'],['suppliers','Suppliers']]},
- {id:'products',icon:'◈',label:'Products',expand:'productMenu',items:[['products','List Products'],['addProduct','Add Product'],['updatePrice','Update Price'],['labels','Print Labels'],['variations','Variations'],['importProducts','Import Products'],['openingStock','Import Opening Stock'],['priceGroups','Selling Price Group'],['units','Units'],['categories','Categories'],['brands','Brands'],['warranties','Warranties']]},
- {id:'purchases',icon:'⇩',label:'Purchases',expand:'purchaseMenu',items:[['purchases','List Purchases'],['addPurchase','Add Purchase'],['purchaseReturns','List Purchase Return']]},
- {id:'sell',icon:'⇧',label:'Sell',expand:'sellMenu',items:[['sales','All Sales'],['addSale','Add Sale'],['listPOS','List POS'],['pos','POS'],['quotations','Quotations'],['saleReturns','List Sell Return'],['shipments','Shipments'],['importSales','Import Sales']]},
- {id:'stock',icon:'◉',label:'Stock Adjustment'},
- {id:'expenses',icon:'▱',label:'Expenses'},
- {id:'paymentAccounts',icon:'▣',label:'Payment Accounts'},
- {id:'reports',icon:'▤',label:'Reports'},
- {id:'notifications',icon:'✉',label:'Notification Templates'},
- {id:'settings',icon:'⚙',label:'Settings'}];}
+ {id:'home',icon:icon('home'),label:'Home'},
+ {id:'users',icon:icon('users'),label:'User Management'},
+ {id:'contacts',icon:icon('contacts'),label:'Contacts',expand:'contactMenu',items:[['customers','Customers'],['suppliers','Suppliers']]},
+ {id:'products',icon:icon('package'),label:'Products',expand:'productMenu',items:[['products','List Products'],['addProduct','Add Product'],['updatePrice','Update Price'],['labels','Print Labels'],['variations','Variations'],['importProducts','Import Products'],['openingStock','Import Opening Stock'],['priceGroups','Selling Price Group'],['units','Units'],['categories','Categories'],['brands','Brands'],['warranties','Warranties']]},
+ {id:'purchases',icon:icon('truck'),label:'Purchases',expand:'purchaseMenu',items:[['purchases','List Purchases'],['addPurchase','Add Purchase'],['purchaseReturns','List Purchase Return']]},
+ {id:'sell',icon:icon('cart'),label:'Sell',expand:'sellMenu',items:[['sales','All Sales'],['addSale','Add Sale'],['listPOS','List POS'],['pos','POS'],['quotations','Quotations'],['saleReturns','List Sell Return'],['shipments','Shipments'],['importSales','Import Sales']]},
+ {id:'stock',icon:icon('sliders'),label:'Stock Adjustment'},
+ {id:'expenses',icon:icon('wallet'),label:'Expenses'},
+ {id:'paymentAccounts',icon:icon('card'),label:'Payment Accounts'},
+ {id:'reports',icon:icon('chart'),label:'Reports'},
+ {id:'notifications',icon:icon('mail'),label:'Notification Templates'},
+ {id:'settings',icon:icon('settings'),label:'Settings'}];}
 function buildNav(){
  let html='<div class="side-top"><img class="side-logo" src="assets/eazypos-logo-green.png" alt="EazyPOS"><div class="business-switch"><b>'+esc(account.business)+'</b><span>'+esc(account.owner||account.username)+'</span></div></div><div class="nav">';
  navSections().forEach(function(sec){
@@ -108,19 +109,19 @@ function buildNav(){
   const visibleItems=(sec.items||[]).filter(function(item){return hasPageAccess(item[0]);});
   if(!sectionAccess && !visibleItems.length) return;
   let active=state.view===sec.id||visibleItems.some(function(x){return x[0]===state.view});
-  html+='<button class="nav-btn '+(active?'active':'')+'" onclick="navClick(\''+sec.id+'\',\''+(sec.expand||'')+'\')"><span class="nav-ico">'+sec.icon+'</span><span>'+sec.label+'</span>'+(visibleItems.length?'<span class="nav-chevron">'+(state[sec.expand]?'⌃':'⌄')+'</span>':'')+'</button>';
+  html+='<button class="nav-btn '+(active?'active':'')+'" onclick="navClick(\''+sec.id+'\',\''+(sec.expand||'')+'\')"><span class="nav-ico">'+sec.icon+'</span><span>'+sec.label+'</span>'+(visibleItems.length?'<span class="nav-chevron'+(state[sec.expand]?' open':'')+'" aria-hidden="true">'+(state[sec.expand]?'⌃':'⌄')+'</span>':'')+'</button>';
   if(visibleItems.length&&state[sec.expand]){
    html+='<div class="submenu">';
    visibleItems.forEach(function(item){html+='<button class="sub-btn '+(state.view===item[0]?'active':'')+'" onclick="event.stopPropagation();go(\''+item[0]+'\')">'+item[1]+'</button>';});
    html+='</div>';
   }
  });
- html+='</div><div class="sidebar-bottom"><button class="nav-btn" onclick="logout()"><span class="nav-ico">↪</span>Log out</button></div>';
+ html+='</div><div class="sidebar-bottom"><button class="nav-btn" onclick="logout()"><span class="nav-ico">'+icon('logout')+'</span>Log out</button></div>';
  document.getElementById('desktopSidebar').innerHTML=html;
  document.getElementById('drawerInner').innerHTML=html;
 }
 function navClick(id,expand){if(expand){state[expand]=!state[expand];renderNav()}else go(id)}
-function renderNav(){buildNav();document.getElementById('mobileBottom').innerHTML=[['home','⌂','Home'],['pos','＋','POS'],['sales','▤','Sales'],['products','◈','Products'],['drawer','☰','Menu']].map(x=>`<button class="${state.view===x[0]?'active':''}" onclick="${x[0]==='drawer'?'toggleDrawer()':`go('${x[0]}')`}">${x[1]}<br>${x[2]}</button>`).join('')}
+function renderNav(){buildNav();document.getElementById('mobileBottom').innerHTML=[['home',icon('home'),'Home'],['pos',icon('plusCircle'),'POS'],['sales',icon('receipt'),'Sales'],['products',icon('package'),'Products'],['drawer',icon('menu'),'Menu']].map(x=>`<button class="${state.view===x[0]?'active':''}" onclick="${x[0]==='drawer'?'toggleDrawer()':`go('${x[0]}')`}">${x[1]}<span>${x[2]}</span></button>`).join('')}
 function toggleDrawer(){document.getElementById('drawer').classList.toggle('open')}
 function syncRouteFromHash(shouldRender=false){
  const parts=decodeURIComponent((location.hash||'').replace(/^#/,'')).split('/');

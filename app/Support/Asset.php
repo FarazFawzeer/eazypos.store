@@ -10,6 +10,7 @@ final class Asset
 {
     /** POS scripts, in load order (they share one global scope). */
     public const POS_SCRIPTS = [
+        'js/pos/00-icons.js',
         'js/pos/00-api.js',
         'js/pos/01-core.js',
         'js/pos/02-products.js',
@@ -22,6 +23,7 @@ final class Asset
         'js/pos/09-admin.js',
         'js/pos/10-shipments.js',
         'js/pos/11-routes.js',
+        'js/pos/12-ui.js',
     ];
 
     public static function url(string $path): string
