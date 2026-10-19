@@ -33,3 +33,12 @@
  }
  window.labelTables=labelTables;
 })();
+
+/* Full screen (POS toolbar button) hides the sidebar and bottom bar;
+ * leaving full screen, by button or Esc, brings them back. */
+(function(){
+ const sync=()=>document.body.classList.toggle('pos-fullscreen',!!(document.fullscreenElement||document.webkitFullscreenElement));
+ document.addEventListener('fullscreenchange',sync);
+ document.addEventListener('webkitfullscreenchange',sync);
+ sync();
+})();

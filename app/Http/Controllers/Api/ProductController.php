@@ -58,6 +58,27 @@ class ProductController extends Controller
         return response()->json($this->products->adjustStock($ctx, $product, $data['adjustment_type'], $data['quantity'], $data['reason'] ?? null));
     }
 
+    public function uploadImage(Request $request, BusinessContext $ctx, string $product): JsonResponse
+    {
+        $data = $request->validate([
+            // 2 MB, real image files only (the type is checked from the file contents).
+            'image' => ['required', 'file', 'image', 'mimes:jpg,jpeg,png,webp', 'max:2048', 'dimensions:max_width=6000,max_height=6000'],
+        ], [
+            'image.required' => 'Choose an image to upload',
+            'image.image' => 'Use a JPG, PNG or WebP image',
+            'image.mimes' => 'Use a JPG, PNG or WebP image',
+            'image.max' => 'The image must be 2 MB or smaller',
+            'image.dimensions' => 'The image is too large. Use one under 6000 × 6000 pixels',
+        ]);
+
+        return response()->json($this->products->setImage($ctx, $product, $data['image']));
+    }
+
+    public function removeImage(BusinessContext $ctx, string $product): JsonResponse
+    {
+        return response()->json($this->products->removeImage($ctx, $product));
+    }
+
     public function masterValue(Request $request, BusinessContext $ctx, string $kind): JsonResponse
     {
         $data = $request->validate(['name' => ['required', 'string', 'max:120']]);

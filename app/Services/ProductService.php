@@ -11,7 +11,10 @@ use App\Support\BusinessContext;
 use App\Support\Money;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\UniqueConstraintViolationException;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 /**
  * Products, prices, manual stock adjustments and catalogue master data.
@@ -188,6 +191,67 @@ class ProductService
                 'movement_type' => $movement,
             ];
         });
+    }
+
+    /**
+     * Store a product photo under public/uploads/products/<business>/ with a
+     * random name and an extension taken from the real file type, replacing
+     * any previous photo.
+     */
+    public function setImage(BusinessContext $ctx, string $productId, UploadedFile $file): Product
+    {
+        $ctx->authorize('products', 'You do not have permission to manage products');
+
+        $product = Product::query()->where('business_id', $ctx->businessId())->whereKey($productId)->first()
+            ?? throw new BusinessRuleException('Product not found');
+
+        $extension = match ($file->getMimeType()) {
+            'image/jpeg' => 'jpg',
+            'image/png' => 'png',
+            'image/webp' => 'webp',
+            default => throw new BusinessRuleException('Use a JPG, PNG or WebP image'),
+        };
+
+        $disk = Storage::disk('uploads');
+        $path = $disk->putFileAs('products/'.$ctx->businessId(), $file, Str::uuid()->toString().'.'.$extension);
+
+        $old = $product->image_url;
+        $product->image_url = '/uploads/'.$path;
+        $product->save();
+
+        $this->deleteStoredImage($old);
+
+        return $product;
+    }
+
+    public function removeImage(BusinessContext $ctx, string $productId): Product
+    {
+        $ctx->authorize('products', 'You do not have permission to manage products');
+
+        $product = Product::query()->where('business_id', $ctx->businessId())->whereKey($productId)->first()
+            ?? throw new BusinessRuleException('Product not found');
+
+        $old = $product->image_url;
+        $product->image_url = null;
+        $product->save();
+        $this->deleteStoredImage($old);
+
+        return $product;
+    }
+
+    /**
+     * Only files we stored ourselves (/uploads/products/...) are ever deleted.
+     */
+    private function deleteStoredImage(?string $url): void
+    {
+        if (! $url || ! str_starts_with($url, '/uploads/products/')) {
+            return;
+        }
+
+        $relative = substr($url, strlen('/uploads/'));
+        if (! str_contains($relative, '..')) {
+            Storage::disk('uploads')->delete($relative);
+        }
     }
 
     /**

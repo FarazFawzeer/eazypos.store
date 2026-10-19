@@ -11,12 +11,15 @@ const eazyApi=(()=>{
 
  async function request(method,url,body){
   let response;
+  const isForm=body instanceof FormData;
+  const headers={'Accept':'application/json','X-CSRF-TOKEN':csrf(),'X-Requested-With':'XMLHttpRequest'};
+  if(!isForm)headers['Content-Type']='application/json';
   try{
    response=await fetch(url,{
     method,
     credentials:'same-origin',
-    headers:{'Accept':'application/json','Content-Type':'application/json','X-CSRF-TOKEN':csrf(),'X-Requested-With':'XMLHttpRequest'},
-    body:body===undefined?undefined:JSON.stringify(body)
+    headers,
+    body:body===undefined?undefined:(isForm?body:JSON.stringify(body))
    });
   }catch(networkError){
    return {data:null,error:{message:'Unable to reach EazyPOS. Check your internet connection and try again.'}};
@@ -70,7 +73,9 @@ const eazyApi=(()=>{
   }
  }
 
- return {get,post,put,del,rpc};
+ const upload=(url,formData)=>request('POST',url,formData);
+
+ return {get,post,put,del,rpc,upload};
 })();
 
 /* When outgoing email is not set up yet, show the invitation link so the

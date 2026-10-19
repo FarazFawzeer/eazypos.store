@@ -64,6 +64,8 @@ Route::middleware(['auth', 'business'])->group(function () {
         Route::put('/products/prices', [Api\ProductController::class, 'prices']);
         Route::put('/products/{product}', [Api\ProductController::class, 'update']);
         Route::post('/products/{product}/adjust-stock', [Api\ProductController::class, 'adjustStock']);
+        Route::post('/products/{product}/image', [Api\ProductController::class, 'uploadImage']);
+        Route::delete('/products/{product}/image', [Api\ProductController::class, 'removeImage']);
         Route::post('/master/{kind}', [Api\ProductController::class, 'masterValue'])->whereIn('kind', ['category', 'unit']);
 
         Route::post('/customers', [Api\ContactController::class, 'storeCustomer']);

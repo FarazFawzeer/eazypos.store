@@ -339,3 +339,74 @@ h3{font-size:15px;font-weight:700}
   .home-tools{width:100%!important;flex-direction:column-reverse;align-items:stretch}
   .home-tools .btn,.home-tools .date-filter-wrap{width:100%}
 }
+
+/* ---------- Phone bottom bar: raised POS in the centre ---------- */
+@media (max-width:820px){
+  .mobile-bottom{overflow:visible;align-items:end;padding-top:8px}
+  .mobile-bottom button{position:relative;color:#7b847d;background:transparent!important;gap:4px}
+  .mobile-bottom button .i{box-sizing:content-box;padding:4px 16px;border-radius:999px;transition:background-color .15s}
+  .mobile-bottom button.active{color:var(--ink)}
+  .mobile-bottom button.active:not(.nav-pos) .i{background:#ecff9c}
+  .mobile-bottom button.active span{font-weight:800}
+  .mobile-bottom .nav-pos{color:var(--ink)}
+  .mobile-bottom .nav-pos .nav-pos-disc{width:60px;height:60px;margin-top:-34px;border-radius:50%;background:var(--lime);display:grid;place-items:center;box-shadow:0 0 0 5px var(--card),0 12px 24px -6px rgba(14,17,15,.35)}
+  .mobile-bottom .nav-pos .nav-pos-disc .i{width:26px;height:26px;padding:0;background:none!important}
+  .mobile-bottom .nav-pos span:last-child{font-weight:800}
+  .mobile-bottom .nav-pos:active .nav-pos-disc{transform:scale(.96)}
+}
+
+/* ---------- Product images ---------- */
+.pthumb{width:44px;height:44px;flex:0 0 44px;border-radius:10px;background:var(--soft);border:1px solid var(--line);display:grid;place-items:center;overflow:hidden;color:#9aa39b}
+.pthumb img{width:100%;height:100%;object-fit:cover;display:block}
+.pthumb .i{width:20px;height:20px}
+.pthumb.tile{width:100%;height:auto;flex:none;aspect-ratio:16/10;border-radius:10px;margin-bottom:10px}
+.pthumb.tile .i{width:26px;height:26px;opacity:.7}
+.product-cell{display:flex;align-items:center;gap:12px;min-width:0}
+.product-cell>div{min-width:0}
+.image-field{display:flex;gap:16px;align-items:flex-start}
+.image-preview{width:96px;height:96px;flex:0 0 96px;border-radius:14px;border:1px solid var(--line);background:var(--soft);display:grid;place-items:center;overflow:hidden;color:#9aa39b}
+.image-preview img{width:100%;height:100%;object-fit:cover;display:block}
+.image-preview .i{width:30px;height:30px}
+.image-field-body{flex:1;min-width:0}
+@media (max-width:640px){
+  .image-field{flex-direction:column}
+  .table.table-stack td.cell-title .product-cell{gap:12px}
+}
+
+/* ---------- POS keeps the app navigation; only full screen hides it ---------- */
+@media (min-width:821px){
+  body.pos-mode .sidebar{display:block!important}
+}
+@media (max-width:820px){
+  body.pos-mode .mobile-bottom{display:grid!important}
+  body.pos-mode .main{padding-bottom:calc(84px + env(safe-area-inset-bottom))}
+  body.pos-mode .pos-bottom-actions{bottom:calc(86px + env(safe-area-inset-bottom))}
+  body.pos-mode .toast{bottom:calc(96px + env(safe-area-inset-bottom))!important}
+  /* On the POS screen the centre button shows you are here */
+  .mobile-bottom .nav-pos.active .nav-pos-disc{background:var(--ink);color:var(--lime)}
+}
+body.pos-mode.pos-fullscreen .sidebar,
+body.pos-mode.pos-fullscreen .mobile-bottom{display:none!important}
+body.pos-mode.pos-fullscreen .main{padding-bottom:0!important}
+body.pos-mode.pos-fullscreen .pos-bottom-actions{bottom:8px}
+body.pos-mode.pos-fullscreen .toast{bottom:24px!important}
+/* POS search row stays on one line when the sidebar takes width */
+.pos-search-row{align-items:center}
+.pos-search-row .searchbar{flex-wrap:nowrap}
+.pos-search-row .searchbar>.input{flex:1 1 auto!important;min-width:0}
+.pos-search-row>.btn{align-self:center}
+
+/* ---------- Bottom bar alignment: one baseline for every label ---------- */
+@media (max-width:820px){
+  .mobile-bottom{grid-template-columns:repeat(5,1fr);align-items:stretch;padding:6px 6px calc(8px + env(safe-area-inset-bottom))}
+  .mobile-bottom button{height:58px;min-height:58px;padding:0 2px;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:5px;border-radius:0}
+  .mobile-bottom button>span:last-child{font-size:11px;font-weight:600;line-height:14px;height:14px;letter-spacing:0}
+  .mobile-bottom button.active>span:last-child{font-weight:700}
+  .mobile-bottom button .i{width:22px;height:22px;padding:4px 18px}
+  /* POS: the circle floats above its slot, its label stays on the shared baseline */
+  .mobile-bottom .nav-pos{position:relative;color:var(--ink)}
+  .mobile-bottom .nav-pos .nav-pos-disc{position:absolute;left:50%;top:-24px;margin:0;transform:translateX(-50%);width:56px;height:56px}
+  .mobile-bottom .nav-pos:active .nav-pos-disc{transform:translateX(-50%) scale(.96)}
+  .mobile-bottom .nav-pos .nav-pos-disc .i{width:24px;height:24px}
+  .mobile-bottom .nav-pos>span:last-child{font-weight:700}
+}

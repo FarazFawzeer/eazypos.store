@@ -38,6 +38,17 @@ return [
             'report' => false,
         ],
 
+        // Product photos. Lives inside public/ so it works on shared hosting
+        // without a storage symlink; public/uploads/.htaccess blocks scripts.
+        'uploads' => [
+            'driver' => 'local',
+            'root' => public_path('uploads'),
+            'url' => '/uploads',
+            'visibility' => 'public',
+            'throw' => true,
+            'report' => false,
+        ],
+
         'public' => [
             'driver' => 'local',
             'root' => storage_path('app/public'),
