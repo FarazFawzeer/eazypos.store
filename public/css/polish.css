@@ -410,3 +410,13 @@ body.pos-mode.pos-fullscreen .toast{bottom:24px!important}
   .mobile-bottom .nav-pos .nav-pos-disc .i{width:24px;height:24px}
   .mobile-bottom .nav-pos>span:last-child{font-weight:700}
 }
+
+/* ---------- Product photos: square frame, whole photo visible (never cropped) ---------- */
+.pthumb,.image-preview{background:#fff}
+.pthumb img,.image-preview img{object-fit:contain;padding:3px}
+.pthumb.tile{aspect-ratio:1/1;max-height:none;border-radius:12px}
+.pthumb.tile img{padding:8px}
+.pthumb:not(:has(img)),.image-preview:not(:has(img)){background:var(--soft)}
+.pthumb,.image-preview{position:relative}
+.pthumb img,.image-preview img{position:absolute;inset:0;width:100%;height:100%;box-sizing:border-box}
+.pthumb.tile{width:100%;height:auto!important;aspect-ratio:1/1!important}
