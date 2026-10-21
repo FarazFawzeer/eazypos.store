@@ -224,6 +224,41 @@ class ProductService
         return $product;
     }
 
+    /**
+     * Delete a product. One with sales, purchases, returns or quotations is
+     * archived instead (hidden everywhere, history kept) and its SKU/barcode
+     * are freed so they can be reused.
+     *
+     * @return array{success: bool, deleted: bool, archived: bool}
+     */
+    public function delete(BusinessContext $ctx, string $productId): array
+    {
+        $ctx->authorize('products', 'You do not have permission to manage products');
+
+        return DB::transaction(function () use ($ctx, $productId) {
+            $product = Product::query()->where('business_id', $ctx->businessId())->whereKey($productId)->lockForUpdate()->first()
+                ?? throw new BusinessRuleException('Product not found');
+
+            $used = DB::table('sale_items')->where('product_id', $product->id)->exists()
+                || DB::table('purchase_items')->where('product_id', $product->id)->exists()
+                || DB::table('sale_return_items')->where('product_id', $product->id)->exists()
+                || DB::table('purchase_return_items')->where('product_id', $product->id)->exists()
+                || DB::table('quotation_items')->where('product_id', $product->id)->exists();
+
+            if ($used) {
+                $product->fill(['is_active' => false, 'sku' => null, 'barcode' => null])->save();
+
+                return ['success' => true, 'deleted' => false, 'archived' => true];
+            }
+
+            $image = $product->image_url;
+            $product->delete(); // stock history rows go with it (cascade)
+            $this->deleteStoredImage($image);
+
+            return ['success' => true, 'deleted' => true, 'archived' => false];
+        });
+    }
+
     public function removeImage(BusinessContext $ctx, string $productId): Product
     {
         $ctx->authorize('products', 'You do not have permission to manage products');

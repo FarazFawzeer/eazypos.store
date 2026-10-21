@@ -74,6 +74,11 @@ class ProductController extends Controller
         return response()->json($this->products->setImage($ctx, $product, $data['image']));
     }
 
+    public function destroy(BusinessContext $ctx, string $product): JsonResponse
+    {
+        return response()->json($this->products->delete($ctx, $product));
+    }
+
     public function removeImage(BusinessContext $ctx, string $product): JsonResponse
     {
         return response()->json($this->products->removeImage($ctx, $product));

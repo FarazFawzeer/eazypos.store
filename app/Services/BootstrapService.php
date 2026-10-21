@@ -66,6 +66,8 @@ class BootstrapService
                 'receiptFooter' => $business->receipt_footer ?? '',
             ],
             'products' => $scoped(Product::class)->where('is_active', true)->orderBy('name')->get(),
+            // Names of archived products, so old invoices still show what was sold.
+            'archived_products' => $scoped(Product::class)->where('is_active', false)->get(['id', 'name', 'image_url']),
             'categories' => $scoped(Category::class)->orderBy('name')->get(),
             'brands' => $scoped(Brand::class)->orderBy('name')->get(),
             'units' => $scoped(Unit::class)->orderBy('name')->get(),
